@@ -1,0 +1,41 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <mat-toolbar color="primary">
+    <img src="../assets/img/fire.png" height="70%" width="3%">
+    <div class="title">{{title}}</div>
+  </mat-toolbar>
+  <mat-card class="players">
+      <div>
+          <p>Nombre d'allumettes : {{matches.length}}/{{matchesNumber}}</p>
+          <p>Sélectionnez un chiffre, celui qui prend la dernière allumette gagne la partie.</p>
+      </div>
+      <mat-grid-list cols="2" rowHeight="4:1">
+          <mat-grid-tile>
+            <p>
+              <span [ngClass]="{'red-tile' : playerOneTurn}" matBadge="{{playerOneVictories}}" matBadgeOverlap="false">Joueur 1</span>
+              <mat-button-toggle-group  [disabled]="!playerOneTurn" id="user1Select" (change)="jouerUnTour(true,$event)" aria-label="User 1 select">
+                  <mat-button-toggle value="1" >1</mat-button-toggle>
+                  <mat-button-toggle [disabled]="matches.length < 2" value="2">2</mat-button-toggle>
+                  <mat-button-toggle [disabled]="matches.length < 3" value="3">3</mat-button-toggle>
+              </mat-button-toggle-group>
+            </p>
+          </mat-grid-tile>
+          <mat-grid-tile>
+              <p>
+                  <span [ngClass]="{'red-tile' : !playerOneTurn}" matBadge="{{playerTwoVictories}}" matBadgeOverlap="false">Joueur 2</span>
+                  <mat-button-toggle-group [disabled]="playerOneTurn" id="user2Select" (change)="jouerUnTour(false,$event)" aria-label="User 2 select">
+                      <mat-button-toggle value="1" >1</mat-button-toggle>
+                      <mat-button-toggle [disabled]="matches.length < 2" value="2" >2</mat-button-toggle>
+                      <mat-button-toggle [disabled]="matches.length < 3" value="3" >3</mat-button-toggle>
+                  </mat-button-toggle-group>
+              </p>
+          </mat-grid-tile>
+      </mat-grid-list>
+      <mat-grid-list cols="1" rowHeight="4:1">
+          <mat-grid-tile>
+              <img *ngFor="let item of matches" src="../assets/img/match-burning-md.png" height="10%" width="3%">
+          </mat-grid-tile>
+      </mat-grid-list>
+  </mat-card>
+</div>
+<router-outlet></router-outlet>
